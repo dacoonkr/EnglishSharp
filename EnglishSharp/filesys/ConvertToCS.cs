@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 
 using EnglishSharp.utils;
-using EnglishSharp.transfile;
+using EnglishSharp.transpile;
 
 namespace EnglishSharp.filesys
 {
@@ -17,7 +17,7 @@ namespace EnglishSharp.filesys
             string source = File.ReadAllText(source_file, Encoding.UTF8);
 
 
-            ResultStatus ret = Transfile.transfile(source);
+            ResultStatus ret = Transfile.transpile(source);
 
             if (ret.status == Status.Success)
             {

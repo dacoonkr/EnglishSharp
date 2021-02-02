@@ -6,13 +6,13 @@ namespace EnglishSharp
     {
         static void Main(string[] args)
         {
-            if (args.Length == 1)
+            if (args.Length == 0)
             {
 
             }
             else
             {
-                filesys.ConvertToCS.convert(args[1]);
+                filesys.ConvertToCS.convert(args[0]);
             }
         }
     }

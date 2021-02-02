@@ -5,11 +5,11 @@ using System.Text;
 using EnglishSharp.utils;
 using EnglishSharp.filesys;
 
-namespace EnglishSharp.transfile
+namespace EnglishSharp.transpile
 {
     class Transfile
     {
-        public static ResultStatus transfile(string source)
+        public static ResultStatus transpile(string source)
         {
             string ret = string.Empty;
 
