@@ -22,5 +22,19 @@ namespace EnglishSharp.utils
 
             return result;
         }
+
+        public static string add_indent(string template, int count)
+        {
+            string[] lines = template.Split('\n');
+            string result = string.Empty;
+
+            string indent = string.Empty;
+            for (int i = 0; i < count; i++) indent += " ";
+
+            foreach(string line in lines)
+                result += indent + lines + "\n";
+
+            return result;
+        }
     }
 }

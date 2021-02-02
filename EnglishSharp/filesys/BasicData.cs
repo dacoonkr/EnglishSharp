@@ -16,6 +16,12 @@ namespace EnglishSharp
         {{render}}
     }
 }"
+            },
+            { "main_method", @"
+static void Main(string[] args) {
+    {{render}}
+}
+"
             }
         };
     }
