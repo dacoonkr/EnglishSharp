@@ -18,7 +18,7 @@ namespace EnglishSharp.utils
         {
             string result = template;
             for (int i = 0; i < content.Count; i++)
-                result = result.Replace($"{{render{i}}}", content[i]);
+                result = result.Replace($"{{{{render{i}}}}}", content[i]);
 
             return result;
         }

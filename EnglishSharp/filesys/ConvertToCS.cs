@@ -16,22 +16,24 @@ namespace EnglishSharp.filesys
             string target_file = $"target\\Program.cs";
             string source = File.ReadAllText(source_file, Encoding.UTF8);
 
-            ResultStatus ret = Transpile.transpile(CodeTree.treeify(source), 0);
+            ResultStatus res = Transpile.transpile(CodeTree.treeify(source), 0);
 
-            if (ret.status == Status.Success)
+            if (res.status == Status.Success)
             {
+                string ret = Renderer.render_mono(BasicData.templates["main_class"], res.content);
+
                 if (!File.Exists(target_file))
                 {
                     Directory.CreateDirectory("target");
                     File.Create(target_file);
                 }
-                File.WriteAllText(target_file, ret.content);
+                File.WriteAllText(target_file, ret);
 
                 return new ResultStatus(Status.Success, string.Empty);
             }
-            else if (ret.status == Status.TransfileError)
+            else if (res.status == Status.TransfileError)
             {
-                return new ResultStatus(Status.TransfileError, ret.content);
+                return new ResultStatus(Status.TransfileError, res.content);
             }
 
             return new ResultStatus(Status.Unknown, string.Empty);

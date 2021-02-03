@@ -7,7 +7,7 @@ namespace EnglishSharp.filesys
     class BasicData
     {
         static HashSet<char> operators = new HashSet<char> {
-            '(', ')', '+', '*', '/', ',', '|', '{', '}' 
+            '(', ')', '+', '*', '/', ',', '|', '{', '}'
         };
 
         public static Dictionary<string, string> templates = new Dictionary<string, string>
@@ -31,7 +31,10 @@ static void Main(string[] args) {
 if ({{render0}}) {
     {{render1}}
 }
-" }
+"           }, { "repeat", @"
+for (int {{render0}} = 0; {{render0}} < {{render1}}; {{render0}}++) {
+    {{render2}}
+}"          }
         };
 
         public static bool isOperator(char c)

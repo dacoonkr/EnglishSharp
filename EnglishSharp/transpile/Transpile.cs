@@ -22,16 +22,20 @@ namespace EnglishSharp.transpile
                 string[] code_splited = Parser.splitIntoToken(code);
                 var keyword = code_splited[0];
 
-                string parsed = string.Empty;
+                ResultStatus parsed;
 
-                if (Filter.match("^(unless|if|else)$", keyword))
-                {
+                if (Filter.match("^(repeat)$", keyword))
+                    parsed = utils.blocks.Blocks.parse_repeat(mem, parent);
+                else
+                    parsed = Parser.parse_sentence(code);
 
-                }
+                if (parsed.status != Status.Success)
+                    return parsed;
+
+                ret += parsed.content + "\n";
             }
 
-            string mainClass = Renderer.render_mono(BasicData.templates["main_class"], ret);
-            return new ResultStatus(Status.Success, mainClass);
+            return new ResultStatus(Status.Success, ret);
         }
     }
 }

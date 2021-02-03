@@ -14,5 +14,15 @@ namespace EnglishSharp.utils
 
             return result;
         }
+
+        public static ResultStatus parse_value(string s)
+        {
+            return new ResultStatus(Status.Success, s.Trim());
+        }
+
+        public static ResultStatus parse_sentence(string s)
+        {
+            return new ResultStatus(Status.Success, s.Trim());
+        }
     }
 }
