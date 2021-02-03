@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace EnglishSharp.utils
 {
@@ -68,6 +69,15 @@ namespace EnglishSharp.utils
             }
 
             return ret;
+        }
+
+        public static bool match(string regex, string content)
+        {
+            Match match = new Regex(regex).Match(content.ToLower());
+
+            if (match.Success)
+                return true;
+            return false;
         }
     }
 }

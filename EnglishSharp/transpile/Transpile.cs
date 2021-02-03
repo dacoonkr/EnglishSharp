@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 using EnglishSharp.utils;
 using EnglishSharp.filesys;
@@ -21,7 +22,12 @@ namespace EnglishSharp.transpile
                 string[] code_splited = Parser.splitIntoToken(code);
                 var keyword = code_splited[0];
 
+                string parsed = string.Empty;
 
+                if (Filter.match("^(unless|if|else)$", keyword))
+                {
+
+                }
             }
 
             string mainClass = Renderer.render_mono(BasicData.templates["main_class"], ret);

@@ -26,7 +26,12 @@ static void Main(string[] args) {
     {{render}}
 }
 "
-            }
+            },
+            { "block_if", @"
+if ({{render0}}) {
+    {{render1}}
+}
+" }
         };
 
         public static bool isOperator(char c)
