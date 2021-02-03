@@ -7,7 +7,7 @@ using EnglishSharp.filesys;
 
 namespace EnglishSharp.transpile
 {
-    class Transfile
+    class Transpile
     {
         public static ResultStatus transpile(string source)
         {

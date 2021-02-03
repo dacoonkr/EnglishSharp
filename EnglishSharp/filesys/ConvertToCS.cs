@@ -17,7 +17,7 @@ namespace EnglishSharp.filesys
             string source = File.ReadAllText(source_file, Encoding.UTF8);
 
 
-            ResultStatus ret = Transfile.transpile(source);
+            ResultStatus ret = Transpile.transpile(source);
 
             if (ret.status == Status.Success)
             {
