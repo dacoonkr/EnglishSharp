@@ -16,8 +16,7 @@ namespace EnglishSharp.filesys
             string target_file = $"target\\Program.cs";
             string source = File.ReadAllText(source_file, Encoding.UTF8);
 
-
-            ResultStatus ret = Transpile.transpile(source);
+            ResultStatus ret = Transpile.transpile(CodeTree.treeify(source), 0);
 
             if (ret.status == Status.Success)
             {

@@ -8,7 +8,7 @@ namespace EnglishSharp.transpile
     {
         public string code;
         public int line;
-        public List<int> children;
+        public List<int> children = new List<int>();
 
         CodeTree(string code, int line)
         {
