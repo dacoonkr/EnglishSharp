@@ -43,7 +43,6 @@ namespace EnglishSharp.transpile
                     for(int j = 0; j < (indent - before_indent); j++)
                         stack.Pop();
                 }
-
                 
                 string code = utils.Filter.refactor(line);
                 ret.Add(new CodeTree(code, i + 1));

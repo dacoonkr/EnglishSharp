@@ -21,6 +21,11 @@ namespace EnglishSharp.filesys
 
             if (ret.status == Status.Success)
             {
+                if (!File.Exists(target_file))
+                {
+                    Directory.CreateDirectory("target");
+                    File.Create(target_file);
+                }
                 File.WriteAllText(target_file, ret.content);
 
                 return new ResultStatus(Status.Success, string.Empty);

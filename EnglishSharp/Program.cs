@@ -12,7 +12,8 @@ namespace EnglishSharp
             }
             else
             {
-                filesys.ConvertToCS.convert(args[0]);
+                foreach (string i in args)
+                    filesys.ConvertToCS.convert(i);
             }
         }
     }

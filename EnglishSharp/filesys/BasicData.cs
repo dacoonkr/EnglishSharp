@@ -6,6 +6,10 @@ namespace EnglishSharp.filesys
 {
     class BasicData
     {
+        static HashSet<char> operators = new HashSet<char> {
+            '(', ')', '+', '*', '/', ',', '|', '{', '}' 
+        };
+
         public static Dictionary<string, string> templates = new Dictionary<string, string>
         {
             { "main_class", @"
@@ -24,5 +28,10 @@ static void Main(string[] args) {
 "
             }
         };
+
+        public static bool isOperator(char c)
+        {
+            return operators.Contains(c);
+        }
     }
 }

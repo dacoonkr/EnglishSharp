@@ -14,7 +14,7 @@ namespace EnglishSharp.utils
         public static int countIndent(string s)
         {
             int indent_count = 0;
-            for (; s[indent_count] == ' ' || s[indent_count] == '\t'; indent_count++);
+            for (; s[indent_count] == ' ' || s[indent_count] == '\t'; indent_count++) ;
 
             return indent_count;
         }
@@ -22,6 +22,50 @@ namespace EnglishSharp.utils
         public static string refactor(string s)
         {
             string ret = string.Empty;
+
+            bool isInString = false;
+            bool escaped = false;
+
+            foreach (char i in s)
+            {
+                if (filesys.BasicData.isOperator(i))
+                {
+                    if (!isInString)
+                        ret += $" {i} ";
+                    else
+                        ret += i;
+                }
+                else if (i == ':')
+                {
+                    if (!isInString)
+                        ret += $"{i} ";
+                    else
+                        ret += i;
+                }
+                else if (i == '"')
+                {
+                    if (!escaped)
+                        isInString = !isInString;
+                    escaped = false;
+                    ret += i;
+                }
+                else if (i == '\\')
+                {
+                    escaped = (isInString && !escaped);
+                    ret += i;
+                }
+                else if (i == ';')
+                {
+                    if (isInString)
+                        ret += i;
+                    else return ret;
+                }
+                else
+                {
+                    ret += i;
+                    escaped = false;
+                }
+            }
 
             return ret;
         }
