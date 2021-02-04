@@ -22,12 +22,20 @@ namespace EnglishSharp.transpile
                 string[] code_splited = Parser.splitIntoToken(code);
                 var keyword = code_splited[0];
 
-                ResultStatus parsed;
+                ResultStatus parsed = new ResultStatus(Status.Success, string.Empty);
 
                 if (Filter.match("^(repeat)$", keyword))
+                {
                     parsed = utils.blocks.Blocks.parse_repeat(mem, parent);
+                }
+                else if (Filter.match("^(import)$", keyword))
+                {
+                    utils.blocks.Blocks.parse_import(mem, parent);
+                }
                 else
+                {
                     parsed = Parser.parse_sentence(code);
+                }
 
                 if (parsed.status != Status.Success)
                     return parsed;

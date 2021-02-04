@@ -18,9 +18,16 @@ namespace EnglishSharp.utils.blocks
             if (count.status != Status.Success) return count;
             if (block.status != Status.Success) return block;
 
-            return new ResultStatus(Status.Success, utils.Renderer.render(filesys.BasicData.templates[keyword], new List<string> {
+            return new ResultStatus(Status.Success, Renderer.render(filesys.BasicData.templates[keyword], new List<string> {
                 Program.getUnusedVar(), count.content, block.content
             }));
+        }
+
+        public static void parse_import(List<CodeTree> mem, int origin)
+        {
+            const string keyword = "import";
+
+            filesys.ConvertToCS.RequirePackage(mem[origin].code.Substring(keyword.Length + 1));
         }
 
         /*
@@ -45,11 +52,6 @@ namespace EnglishSharp.utils.blocks
         }
 
         public static string parse_when(List<CodeTree> mem, int origin)
-        {
-
-        }
-
-        public static string parse_import(List<CodeTree> mem, int origin)
         {
 
         }

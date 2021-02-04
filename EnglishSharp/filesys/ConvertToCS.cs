@@ -10,6 +10,13 @@ namespace EnglishSharp.filesys
 {
     class ConvertToCS
     {
+        static List<string> require_package = new List<string>();
+
+        public static void RequirePackage(string name)
+        {
+            require_package.Add(name);
+        }
+
         //C#코드로 변환 후 저장
         public static ResultStatus convert(string source_file)
         {
@@ -20,6 +27,14 @@ namespace EnglishSharp.filesys
 
             if (res.status == Status.Success)
             {
+                foreach (var i in require_package)
+                {
+                    ResultStatus package = Package.Download(i);
+
+                    if (package.status != Status.Success)
+                        return package;
+                }
+
                 string ret = Renderer.render_mono(BasicData.templates["main_class"], res.content);
 
                 if (!File.Exists(target_file))
