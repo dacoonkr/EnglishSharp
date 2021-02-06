@@ -7,7 +7,7 @@ namespace EnglishSharp.filesys
 {
     class HEPP
     {
-        public static Header loadFromSource(string name)
+        public static List<Header> loadFromSource(string name)
         {
             List<Header> headers = new List<Header>();
 
@@ -16,7 +16,10 @@ namespace EnglishSharp.filesys
 
             foreach (string line in source.Split('\n'))
             {
-                string[] args = line.Split(' ');
+                string[] args = line.Trim().Split(' ');
+
+                if (args.Length == 0) continue;
+                if (args[0].Length == 0) continue;
 
                 if (args[0][0] == '/')
                 {
@@ -28,15 +31,15 @@ namespace EnglishSharp.filesys
                         ArgumentType now = ArgumentType.Value;
                         for (int i = 2; i < args.Length; i++)
                         {
-                            switch(args[i])
+                            switch (args[i])
                             {
-                                case "$v":
+                                case "&v":
                                     now = ArgumentType.Value;
                                     break;
-                                case "$i":
+                                case "&i":
                                     now = ArgumentType.Identifier;
                                     break;
-                                case "$s":
+                                case "&s":
                                     now = ArgumentType.Selectable;
                                     break;
                                 default:
@@ -52,7 +55,7 @@ namespace EnglishSharp.filesys
                         {
                             switch (args[i])
                             {
-                                case "$ti":
+                                case "&ti":
                                     now = RequireType.TempIdentifier;
                                     break;
                                 default:
@@ -78,7 +81,6 @@ namespace EnglishSharp.filesys
                     else if (args[0] == "/end")
                     {
                         headers.Add(header);
-                        header = null;
                     }
                 }
                 else
@@ -87,7 +89,7 @@ namespace EnglishSharp.filesys
                 }
             }
 
-            return new Header();
+            return headers;
         }
     }
 
@@ -96,8 +98,8 @@ namespace EnglishSharp.filesys
         public string name;
 
         public MacroType macroType;
-        public List<Argument> arguments;
-        public List<Require> requires;
+        public List<Argument> arguments = new List<Argument>();
+        public List<Require> requires = new List<Require>();
 
         public string template;
 
@@ -144,7 +146,7 @@ namespace EnglishSharp.filesys
         Selectable = 3
     }
 
-    enum RequireType: int
+    enum RequireType : int
     {
         TempIdentifier = 1,
 

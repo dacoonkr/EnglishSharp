@@ -5,7 +5,7 @@ namespace EnglishSharp
     class Program
     {
         static int varUsed = 0;
-        
+
         public static string getUnusedVar()
         {
             return $"vtmp{varUsed}";
