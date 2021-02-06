@@ -28,6 +28,18 @@ namespace EnglishSharp.transpile
                 {
                     parsed = utils.blocks.Blocks.parse_repeat(mem, parent);
                 }
+                else if (Filter.match("^(while)$", keyword))
+                {
+                    parsed = utils.blocks.Blocks.parse_ongArg(mem, parent, keyword);
+                }
+                else if (Filter.match("^(return)$", keyword))
+                {
+                    parsed = utils.blocks.Blocks.parse_oneLine(mem, parent, keyword);
+                }
+                else if (Filter.match("^(break|continue)$", keyword))
+                {
+                    parsed = new ResultStatus(Status.Success, $"{keyword};");
+                }
                 else if (Filter.match("^(import)$", keyword))
                 {
                     utils.blocks.Blocks.parse_import(mem, parent);

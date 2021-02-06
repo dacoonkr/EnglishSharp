@@ -19,22 +19,23 @@ namespace EnglishSharp
     {
         {{render}}
     }
-}"
-            },
+}"          },
             { "main_method", @"
 static void Main(string[] args) {
     {{render}}
-}
-"
-            },
+}"          },
             { "block_if", @"
 if ({{render0}}) {
     {{render1}}
-}
-"           }, { "repeat", @"
+}"          }, { "repeat", @"
 for (int {{render0}} = 0; {{render0}} < {{render1}}; {{render0}}++) {
     {{render2}}
-}"          }
+}"          }, { "while", @"
+while ({{render0}}) {
+    {{render1}}
+}"          }, { "return", @"
+return {{render}};"
+            }
         };
 
         public static bool isOperator(char c)

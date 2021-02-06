@@ -23,6 +23,28 @@ namespace EnglishSharp.utils.blocks
             }));
         }
 
+        public static ResultStatus parse_ongArg(List<CodeTree> mem, int origin, string keyword)
+        {
+            ResultStatus arg = utils.Parser.parse_value(mem[origin].code.Substring(keyword.Length + 1));
+            ResultStatus block = Transpile.transpile(mem, origin);
+
+            if (arg.status != Status.Success) return arg;
+            if (block.status != Status.Success) return block;
+
+            return new ResultStatus(Status.Success, Renderer.render(filesys.BasicData.templates[keyword], new List<string> {
+                arg.content, block.content
+            }));
+        }
+
+        public static ResultStatus parse_oneLine(List<CodeTree> mem, int origin, string keyword)
+        {
+            ResultStatus arg = utils.Parser.parse_value(mem[origin].code.Substring(keyword.Length + 1));
+
+            if (arg.status != Status.Success) return arg;
+
+            return new ResultStatus(Status.Success, Renderer.render_mono(filesys.BasicData.templates[keyword], arg.content));
+        }
+
         public static void parse_import(List<CodeTree> mem, int origin)
         {
             const string keyword = "import";
@@ -36,10 +58,6 @@ namespace EnglishSharp.utils.blocks
 
         }
 
-        public static string parse_while(List<CodeTree> mem, int origin)
-        {
-
-        }
 
         public static string parse_for(List<CodeTree> mem, int origin)
         {
