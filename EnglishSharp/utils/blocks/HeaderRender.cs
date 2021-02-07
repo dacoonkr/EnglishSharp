@@ -18,6 +18,7 @@ namespace EnglishSharp.utils.blocks
                 return new ResultStatus(Status.TransfileError, TranspileError.MacroDoesNotMatch.ToString());
 
             Dictionary<string, string> args = new Dictionary<string, string>();
+            Dictionary<string, string> requires = new Dictionary<string, string>();
 
             for (int i = 0; i < header.arguments.Count; i++)
             {
@@ -41,7 +42,28 @@ namespace EnglishSharp.utils.blocks
                 }
             }
 
+            for (int i = 0; i < header.requires.Count; i++)
+            {
+                if (header.requires[i].requireType == RequireType.TempIdentifier)
+                {
+                    args.Add(header.requires[i].name, Program.getUnusedVar());
+                }
+            }
 
+            if (header.macroType == MacroType.Block)
+            {
+                ResultStatus res = Transpile.transpile(mem, origin);
+                if (res.status != Status.Success)
+                    return res;
+
+                args.Add("innerContent", res.content);
+            }
+
+            string ret = header.template;
+            foreach (var key in args.Keys)
+                ret = ret.Replace($"&{key}", args[key]);
+
+            return new ResultStatus(Status.Success, ret);
         }
     }
 }
