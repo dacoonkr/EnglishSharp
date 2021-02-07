@@ -29,7 +29,7 @@ namespace EnglishSharp.filesys
             {
                 foreach (var i in require_package)
                 {
-                    ResultStatus package = Package.Download(i);
+                    ResultStatus package = Package.Download(i.Trim());
 
                     if (package.status != Status.Success)
                         return package;

@@ -12,13 +12,12 @@ namespace EnglishSharp.utils.blocks
     {
         public static ResultStatus renderWithHeader(Header header, List<CodeTree> mem, int origin)
         {
-            List<string> args_given = Parser.splitCollection(mem[origin].code);
+            List<string> args_given = Parser.splitCollection(mem[origin].code.Substring(header.name.Length + 1));
 
             if (args_given.Count != header.arguments.Count)
                 return new ResultStatus(Status.TransfileError, TranspileError.MacroDoesNotMatch.ToString());
 
             Dictionary<string, string> args = new Dictionary<string, string>();
-            Dictionary<string, string> requires = new Dictionary<string, string>();
 
             for (int i = 0; i < header.arguments.Count; i++)
             {

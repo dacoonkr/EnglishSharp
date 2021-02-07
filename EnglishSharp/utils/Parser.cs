@@ -27,8 +27,9 @@ namespace EnglishSharp.utils
             {
                 if (i == ',')
                 {
-                    if (!isInString) {
-                        ret.Add(tmp);
+                    if (!isInString)
+                    {
+                        ret.Add(tmp.Trim());
                         tmp = string.Empty;
                     }
                     else
@@ -52,7 +53,7 @@ namespace EnglishSharp.utils
                     escaped = false;
                 }
             }
-            if (tmp != string.Empty) ret.Add(tmp);
+            if (tmp != string.Empty) ret.Add(tmp.Trim());
 
             return ret;
         }
