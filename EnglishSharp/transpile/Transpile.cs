@@ -26,20 +26,18 @@ namespace EnglishSharp.transpile
                 ResultStatus parsed = new ResultStatus(Status.Success, string.Empty);
 
                 if (Filter.match("^(import)$", keyword))
-                {
-                    utils.blocks.Blocks.parse_import(mem, parent);
-                }
+                    ConvertToCS.RequirePackage(mem[parent].code.Substring(7));
                 else if (Filter.match("^(using)$", keyword))
                 {
                     foreach (var header in HEPP.loadFromSource(code.Substring(6)))
-                    {
                         headers.Add(header.name, header);
-                    }
+                }
+                else if (headers.ContainsKey(keyword))
+                {
+                    parsed = utils.blocks.HeaderRender.renderWithHeader(headers[keyword], mem, parent);
                 }
                 else
-                {
                     parsed = Parser.parse_sentence(code);
-                }
 
                 if (parsed.status != Status.Success)
                     return parsed;

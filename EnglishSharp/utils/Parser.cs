@@ -15,6 +15,48 @@ namespace EnglishSharp.utils
             return result;
         }
 
+        public static List<string> splitCollection(string s)
+        {
+            List<string> ret = new List<string>();
+
+            string tmp = string.Empty;
+            bool isInString = false;
+            bool escaped = false;
+
+            foreach (char i in s)
+            {
+                if (i == ',')
+                {
+                    if (!isInString) {
+                        ret.Add(tmp);
+                        tmp = string.Empty;
+                    }
+                    else
+                        tmp += i;
+                }
+                else if (i == '"')
+                {
+                    if (!escaped)
+                        isInString = !isInString;
+                    escaped = false;
+                    tmp += i;
+                }
+                else if (i == '\\')
+                {
+                    escaped = (isInString && !escaped);
+                    tmp += i;
+                }
+                else
+                {
+                    tmp += i;
+                    escaped = false;
+                }
+            }
+            if (tmp != string.Empty) ret.Add(tmp);
+
+            return ret;
+        }
+
         public static ResultStatus parse_value(string s)
         {
             return new ResultStatus(Status.Success, s.Trim());

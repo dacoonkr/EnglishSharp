@@ -39,8 +39,8 @@ namespace EnglishSharp.filesys
                                 case "&i":
                                     now = ArgumentType.Identifier;
                                     break;
-                                case "&s":
-                                    now = ArgumentType.Selectable;
+                                case "&m":
+                                    now = ArgumentType.Match;
                                     break;
                                 default:
                                     header.arguments.Add(new Argument(now, args[i]));
@@ -143,12 +143,11 @@ namespace EnglishSharp.filesys
     {
         Value = 1,
         Identifier = 2,
-        Selectable = 3
+        Match = 3
     }
 
     enum RequireType : int
     {
-        TempIdentifier = 1,
-
+        TempIdentifier = 1
     }
 }
